@@ -32,10 +32,15 @@ import React from 'react';
 import { createRoot } from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';  // Import BrowserRouter here
 import App from './App';
+import ChatProvider from './contex/chatProvider';
 
 const root = createRoot(document.getElementById('root'));
 root.render(
-  <BrowserRouter>  {/* Only one Router should be here */}
+  
+  <BrowserRouter>
+  {/* <ChatProvider>  Only one Router should be here */}
     <App />
+    {/* </ChatProvider> */}
   </BrowserRouter>
+ 
 );

@@ -159,6 +159,40 @@ const UserController = {
     }
   },
 
+
+  async searchUsers(req, res) {
+    const keyword = req.query.search
+      ? {
+          $or: [
+            { username: { $regex: req.query.search, $options: 'i' } },
+            { email: { $regex: req.query.search, $options: 'i' } },
+          ],
+        }
+      : {};
+
+    try {
+      const users = await User.find(keyword).select('-password');
+      res.status(200).json(users);
+    } catch (err) {
+      res.status(500).json({ message: 'Error fetching users', error: err });
+    }
+  },
+
+  // Get user by ID
+  async getUserById(req, res) {
+    try {
+      const user = await User.findById(req.params.id).select('-password');
+      if (!user) {
+        return res.status(404).json({ message: 'User not found!' });
+      }
+      res.status(200).json(user);
+    } catch (err) {
+      res.status(500).json({ message: 'Error fetching user', error: err });
+    }
+  },
+
+
+
   // Multer upload setup (middleware for handling photo uploads)
   upload: upload.single('profilePic'),
 };

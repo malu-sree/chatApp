@@ -4,6 +4,7 @@ const connectDB = require("./config/db");
 const dotenv = require("dotenv");
 const cors = require("cors"); 
 const userRoutes = require("./routes/userRoutes");
+const chatRoutes = require("./routes/chatRoutes");
 
 
 dotenv.config();
@@ -16,8 +17,10 @@ app.use(express.json()); // to accept json data
 
 app.use('/uploads', express.static('uploads')); // Serve uploaded files
 app.use("/api/user", userRoutes);
+app.use("/api/chat", chatRoutes);
 
-app.get("/api/chat",(req,res)=>{
+
+app.get("/api/chats",(req,res)=>{
     res.send(chats)
 })
 

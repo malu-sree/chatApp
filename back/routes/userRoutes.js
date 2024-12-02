@@ -16,6 +16,7 @@
 
 const express = require('express');
 const UserController = require('../controller/userController'); // Import the UserController
+const { protect } = require('../middleware/authMiddleware'); 
 
 const router = express.Router();
 
@@ -24,5 +25,9 @@ router.post('/signup', UserController.upload, UserController.signup);
 
 // POST route for login
 router.post('/login', UserController.login);
+
+// Protected route
+router.get('/search', protect, UserController.searchUsers);
+router.get('/:id', protect, UserController.getUserById);
 
 module.exports = router;

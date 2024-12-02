@@ -1,39 +1,4 @@
-// import React from 'react';
-// import { Box, Typography, Button } from '@mui/material';
-// import { useNavigate } from 'react-router-dom';
 
-// const ChatPage = () => {
-//   const navigate = useNavigate();
-
-//   const handleLogout = () => {
-//     localStorage.removeItem('token');  // Clear the token
-//     navigate('/');  // Redirect back to homepage
-//   };
-
-//   return (
-//     <Box sx={{ padding: '20px' }}>
-//       <Typography variant="h4" align="center" sx={{ marginBottom: '20px' }}>
-//         Welcome to the Chat Page!
-//       </Typography>
-
-//       {/* Add chat features here */}
-//       <Typography variant="body1" align="center" sx={{ marginBottom: '20px' }}>
-//         Here you can chat with other users. Enjoy your conversation!
-//       </Typography>
-
-//       <Button
-//         variant="contained"
-//         color="secondary"
-//         onClick={handleLogout}
-//         sx={{ padding: '10px', marginTop: '20px', display: 'block', margin: '0 auto' }}
-//       >
-//         Logout
-//       </Button>
-//     </Box>
-//   );
-// };
-
-// export default ChatPage;
 
 
 import React, { useState, useEffect } from 'react';
@@ -49,7 +14,7 @@ const ChatPage = () => {
   useEffect(() => {
     const fetchChats = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/api/chat');
+        const response = await axios.get('http://localhost:5000/api/chats');
         setChats(response.data);  // Store chat data in state
       } catch (error) {
         console.error('Error fetching chats:', error);
@@ -101,3 +66,79 @@ const ChatPage = () => {
 };
 
 export default ChatPage;
+
+// import React, { useState } from "react";
+// import { Container, Paper, Box, Typography } from "@mui/material";
+// import SearchUser from "../compontent/chat/searchUser";
+// import CreateChat from "../compontent/chat/createChat"; // Import the CreateChat component
+
+// const ChatPage = () => {
+//   const [selectedUserId, setSelectedUserId] = useState(null);
+//   const [token, setToken] = useState(localStorage.getItem("token"));
+
+//   const handleChatCreate = (userId) => {
+//     setSelectedUserId(userId);
+//   };
+
+//   return (
+//     <Container maxWidth="sm">
+//       <Paper sx={{ padding: 3 }}>
+//         <Typography variant="h4" align="center" sx={{ marginBottom: 2 }}>
+//           Search for Users to Chat
+//         </Typography>
+
+//         {!selectedUserId ? (
+//           <SearchUser onChatCreate={handleChatCreate} />
+//         ) : (
+//           <CreateChat userId={selectedUserId} token={token} />
+//         )}
+//       </Paper>
+//     </Container>
+//   );
+// };
+
+// export default ChatPage;
+
+
+// import React, { useState, useEffect } from "react";
+// import { Container, Paper, Box, Typography } from "@mui/material";
+// import SearchUser from "../compontent/chat/searchUser";
+// import CreateChat from "../compontent/chat/createChat"; // Import the CreateChat component
+// import { ChatState } from "../contex/chatProvider";  // Import ChatState to use context
+
+// const ChatPage = () => {
+//   const { user, setUser, selectedChat, setSelectedChat } = ChatState();  // Accessing context
+//   const [token, setToken] = useState(localStorage.getItem("token"));
+
+//   // Setting up user in context if not already set
+//   useEffect(() => {
+//     const userInfo = JSON.parse(localStorage.getItem("userInfo"));
+//     if (userInfo) {
+//       setUser(userInfo);
+//     } else {
+//       // Redirect or show login if user is not authenticated
+//     }
+//   }, [setUser]);
+
+//   const handleChatCreate = (userId) => {
+//     setSelectedChat(userId);  // Set selected chat to start a conversation with a user
+//   };
+
+//   return (
+//     <Container maxWidth="sm">
+//       <Paper sx={{ padding: 3 }}>
+//         <Typography variant="h4" align="center" sx={{ marginBottom: 2 }}>
+//           Search for Users to Chat
+//         </Typography>
+
+//         {!selectedChat ? (
+//           <SearchUser onChatCreate={handleChatCreate} />
+//         ) : (
+//           <CreateChat userId={selectedChat} token={token} />
+//         )}
+//       </Paper>
+//     </Container>
+//   );
+// };
+
+// export default ChatPage;
